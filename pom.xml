@@ -52,7 +52,7 @@
         <module>oraclereader</module>
         <module>odpsreader</module>
         <module>otsreader</module>
-        <module>otsstreamreader</module>
+        <!--<module>otsstreamreader</module>-->
         <module>txtfilereader</module>
         <module>hdfsreader</module>
         <module>streamreader</module>
@@ -189,8 +189,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <encoding>${project-sourceEncoding}</encoding>
                 </configuration>
             </plugin>
