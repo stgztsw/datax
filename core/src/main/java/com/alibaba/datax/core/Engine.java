@@ -124,6 +124,8 @@ public class Engine {
         options.addOption("job", true, "Job config.");
         options.addOption("jobid", true, "Job unique id.");
         options.addOption("mode", true, "Job runtime mode.");
+        options.addOption(CoreConstant.DATAX_JOB_PARAM_BIZ_DATE_VALUE, true, "biz date value");
+        options.addOption(CoreConstant.DATAX_JOB_PARAM_CUR_DATE_VALUE, true, "current date value");
 
         BasicParser parser = new BasicParser();
         CommandLine cl = parser.parse(options, args);
@@ -133,7 +135,8 @@ public class Engine {
         // 如果用户没有明确指定jobid, 则 datax.py 会指定 jobid 默认值为-1
         String jobIdString = cl.getOptionValue("jobid");
         RUNTIME_MODE = cl.getOptionValue("mode");
-
+        String biz_date_value = cl.getOptionValue(CoreConstant.DATAX_JOB_PARAM_BIZ_DATE_VALUE);
+        String cur_date_value = cl.getOptionValue(CoreConstant.DATAX_JOB_PARAM_CUR_DATE_VALUE);
         Configuration configuration = ConfigParser.parse(jobPath);
 
         long jobId;
@@ -155,7 +158,12 @@ public class Engine {
             throw DataXException.asDataXException(FrameworkErrorCode.CONFIG_ERROR, "非 standalone 模式必须在 URL 中提供有效的 jobId.");
         }
         configuration.set(CoreConstant.DATAX_CORE_CONTAINER_JOB_ID, jobId);
-
+        if (biz_date_value != null) {
+            configuration.setBiz_date_value(biz_date_value);
+        }
+        if (cur_date_value != null) {
+            configuration.setCur_date_value(cur_date_value);
+        }
         //打印vmInfo
         VMInfo vmInfo = VMInfo.getVmInfo();
         if (vmInfo != null) {

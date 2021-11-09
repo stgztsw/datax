@@ -10,8 +10,11 @@ import com.alibaba.datax.core.taskgroup.runner.AbstractRunner;
 import com.alibaba.datax.core.taskgroup.runner.ReaderRunner;
 import com.alibaba.datax.core.taskgroup.runner.WriterRunner;
 import com.alibaba.datax.core.util.FrameworkErrorCode;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -198,5 +201,29 @@ public class LoadUtil {
         }
 
         return jarLoader;
+    }
+
+    public static Configuration convertIncrementTime(Configuration conf, String biz_date_value, String cur_date_value) {
+        String where = conf.getString("where");
+        SimpleDateFormat sdf = new SimpleDateFormat( "yyyyMMdd" );
+        String biz_date = sdf.format(DateUtils.addDays(new Date(), -1));
+        String cur_date = sdf.format(new Date());
+        if (where == null) {
+            return conf;
+        }
+        if (where.contains(CoreConstant.DATAX_JOB_PARAM_BIZ_DATE)) {
+            if (biz_date_value != null) {
+                where = where.replace(CoreConstant.DATAX_JOB_PARAM_BIZ_DATE, biz_date_value);
+            }
+            where = where.replace(CoreConstant.DATAX_JOB_PARAM_BIZ_DATE, biz_date);
+        }
+        if (where.contains(CoreConstant.DATAX_JOB_PARAM_CUR_DATE)) {
+            if (cur_date_value != null) {
+                where = where.replace(CoreConstant.DATAX_JOB_PARAM_CUR_DATE, cur_date_value);
+            }
+            where = where.replace(CoreConstant.DATAX_JOB_PARAM_CUR_DATE, cur_date);
+        }
+        conf.set("where", where);
+        return conf;
     }
 }

@@ -186,4 +186,9 @@ public class CoreConstant {
 	public static String DATAX_STORAGE_PLUGIN_WRITER_HOME = StringUtils.join(
 			new String[] { DATAX_HOME, "local_storage", "plugin","writer" }, File.separator);
 
+//	----------------时间参数化
+	public static String DATAX_JOB_PARAM_BIZ_DATE = "${biz_date}";
+	public static String DATAX_JOB_PARAM_CUR_DATE = "${cur_date}";
+	public static String DATAX_JOB_PARAM_BIZ_DATE_VALUE = "biz_date_value";
+	public static String DATAX_JOB_PARAM_CUR_DATE_VALUE = "cur_date_value";
 }

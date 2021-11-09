@@ -406,7 +406,7 @@ public class JobContainer extends AbstractContainer {
                 readerTaskConfigs, writerTaskConfigs, transformerList);
 
 
-        LOG.debug("contentConfig configuration: "+ JSON.toJSONString(contentConfig));
+        LOG.info("contentConfig configuration: "+ JSON.toJSONString(contentConfig));
 
         this.configuration.set(CoreConstant.DATAX_JOB_CONTENT, contentConfig);
 
@@ -662,8 +662,10 @@ public class JobContainer extends AbstractContainer {
                 PluginType.READER, this.readerPluginName);
 
         // 设置reader的jobConfig
-        jobReader.setPluginJobConf(this.configuration.getConfiguration(
-                CoreConstant.DATAX_JOB_CONTENT_READER_PARAMETER));
+        jobReader.setPluginJobConf(LoadUtil.convertIncrementTime(this.configuration.getConfiguration(
+                CoreConstant.DATAX_JOB_CONTENT_READER_PARAMETER),
+                configuration.getBiz_date_value(),
+                configuration.getCur_date_value()));
 
         // 设置reader的readerConfig
         jobReader.setPeerPluginJobConf(this.configuration.getConfiguration(

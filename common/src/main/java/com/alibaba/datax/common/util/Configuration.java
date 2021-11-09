@@ -59,7 +59,27 @@ public class Configuration {
     private Set<String> secretKeyPathSet =
             new HashSet<String>();
 
+    private String biz_date_value;
+
+    private String cur_date_value;
+
 	private Object root = null;
+
+	public String getBiz_date_value() {
+		return biz_date_value;
+	}
+
+	public void setBiz_date_value(String biz_date_value) {
+		this.biz_date_value = biz_date_value;
+	}
+
+	public String getCur_date_value() {
+		return cur_date_value;
+	}
+
+	public void setCur_date_value(String cur_date_value) {
+		this.cur_date_value = cur_date_value;
+	}
 
 	/**
 	 * 初始化空白的Configuration
