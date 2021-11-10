@@ -187,8 +187,10 @@ public class CoreConstant {
 			new String[] { DATAX_HOME, "local_storage", "plugin","writer" }, File.separator);
 
 //	----------------时间参数化
+	public static String DATAX_JOB_PARAM_TIME_ENABLE = "param_time_enable";
 	public static String DATAX_JOB_PARAM_BIZ_DATE = "${biz_date}";
 	public static String DATAX_JOB_PARAM_CUR_DATE = "${cur_date}";
 	public static String DATAX_JOB_PARAM_BIZ_DATE_VALUE = "biz_date_value";
 	public static String DATAX_JOB_PARAM_CUR_DATE_VALUE = "cur_date_value";
+	public static String DATAX_JOB_PARAM_TIME_FORMAT = "param_time_format";
 }

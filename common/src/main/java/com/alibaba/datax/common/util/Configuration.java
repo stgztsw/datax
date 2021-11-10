@@ -59,9 +59,13 @@ public class Configuration {
     private Set<String> secretKeyPathSet =
             new HashSet<String>();
 
+    private boolean param_time_enable = false;
+
     private String biz_date_value;
 
     private String cur_date_value;
+
+    private String time_format = "yyyyMMdd";
 
 	private Object root = null;
 
@@ -79,6 +83,22 @@ public class Configuration {
 
 	public void setCur_date_value(String cur_date_value) {
 		this.cur_date_value = cur_date_value;
+	}
+
+	public boolean isParam_time_enable() {
+		return param_time_enable;
+	}
+
+	public void setParam_time_enable(boolean param_time_enable) {
+		this.param_time_enable = param_time_enable;
+	}
+
+	public String getTime_format() {
+		return time_format;
+	}
+
+	public void setTime_format(String time_format) {
+		this.time_format = time_format;
 	}
 
 	/**

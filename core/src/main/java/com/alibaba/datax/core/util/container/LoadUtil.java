@@ -14,6 +14,7 @@ import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -203,14 +204,20 @@ public class LoadUtil {
         return jarLoader;
     }
 
-    public static Configuration convertIncrementTime(Configuration conf, String biz_date_value, String cur_date_value) {
+    public static Configuration convertIncrementTime(Configuration conf, boolean isEnable,
+            String biz_date_value, String cur_date_value, String format) {
         String where = conf.getString("where");
-        SimpleDateFormat sdf = new SimpleDateFormat( "yyyyMMdd" );
-        String biz_date = sdf.format(DateUtils.addDays(new Date(), -1));
-        String cur_date = sdf.format(new Date());
-        if (where == null) {
+        if (!isEnable || where == null) {
             return conf;
         }
+        Calendar ca = Calendar.getInstance();
+        ca.set(Calendar.HOUR_OF_DAY, 0);
+        ca.set(Calendar.MINUTE, 0);
+        ca.set(Calendar.SECOND, 0);
+        Date now = ca.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        String biz_date = sdf.format(DateUtils.addDays(now, -1));
+        String cur_date = sdf.format(now);
         if (where.contains(CoreConstant.DATAX_JOB_PARAM_BIZ_DATE)) {
             if (biz_date_value != null) {
                 where = where.replace(CoreConstant.DATAX_JOB_PARAM_BIZ_DATE, biz_date_value);

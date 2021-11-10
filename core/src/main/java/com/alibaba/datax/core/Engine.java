@@ -124,8 +124,10 @@ public class Engine {
         options.addOption("job", true, "Job config.");
         options.addOption("jobid", true, "Job unique id.");
         options.addOption("mode", true, "Job runtime mode.");
+        options.addOption(CoreConstant.DATAX_JOB_PARAM_TIME_ENABLE, false, "enable time parameter");
         options.addOption(CoreConstant.DATAX_JOB_PARAM_BIZ_DATE_VALUE, true, "biz date value");
         options.addOption(CoreConstant.DATAX_JOB_PARAM_CUR_DATE_VALUE, true, "current date value");
+        options.addOption(CoreConstant.DATAX_JOB_PARAM_TIME_FORMAT, true, "time format");
 
         BasicParser parser = new BasicParser();
         CommandLine cl = parser.parse(options, args);
@@ -135,8 +137,10 @@ public class Engine {
         // 如果用户没有明确指定jobid, 则 datax.py 会指定 jobid 默认值为-1
         String jobIdString = cl.getOptionValue("jobid");
         RUNTIME_MODE = cl.getOptionValue("mode");
+        boolean time_enable = cl.hasOption(CoreConstant.DATAX_JOB_PARAM_TIME_ENABLE);
         String biz_date_value = cl.getOptionValue(CoreConstant.DATAX_JOB_PARAM_BIZ_DATE_VALUE);
         String cur_date_value = cl.getOptionValue(CoreConstant.DATAX_JOB_PARAM_CUR_DATE_VALUE);
+        String time_format = cl.getOptionValue(CoreConstant.DATAX_JOB_PARAM_TIME_FORMAT);
         Configuration configuration = ConfigParser.parse(jobPath);
 
         long jobId;
@@ -158,11 +162,15 @@ public class Engine {
             throw DataXException.asDataXException(FrameworkErrorCode.CONFIG_ERROR, "非 standalone 模式必须在 URL 中提供有效的 jobId.");
         }
         configuration.set(CoreConstant.DATAX_CORE_CONTAINER_JOB_ID, jobId);
+        configuration.setParam_time_enable(time_enable);
         if (biz_date_value != null) {
             configuration.setBiz_date_value(biz_date_value);
         }
         if (cur_date_value != null) {
             configuration.setCur_date_value(cur_date_value);
+        }
+        if (time_format != null) {
+            configuration.setTime_format(time_format);
         }
         //打印vmInfo
         VMInfo vmInfo = VMInfo.getVmInfo();

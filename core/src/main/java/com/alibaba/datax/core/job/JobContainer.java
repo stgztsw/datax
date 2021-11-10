@@ -664,8 +664,10 @@ public class JobContainer extends AbstractContainer {
         // 设置reader的jobConfig
         jobReader.setPluginJobConf(LoadUtil.convertIncrementTime(this.configuration.getConfiguration(
                 CoreConstant.DATAX_JOB_CONTENT_READER_PARAMETER),
+                configuration.isParam_time_enable(),
                 configuration.getBiz_date_value(),
-                configuration.getCur_date_value()));
+                configuration.getCur_date_value(),
+                configuration.getTime_format()));
 
         // 设置reader的readerConfig
         jobReader.setPeerPluginJobConf(this.configuration.getConfiguration(
