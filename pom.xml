@@ -86,6 +86,7 @@
         <module>hbase11xsqlreader</module>
         <module>elasticsearchwriter</module>
         <module>starrockswriter</module>
+        <module>doriswriter</module>
 
         <!-- common support module -->
         <module>plugin-rdbms-util</module>
