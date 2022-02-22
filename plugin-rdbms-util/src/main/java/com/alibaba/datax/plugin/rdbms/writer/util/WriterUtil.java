@@ -130,6 +130,12 @@ public final class WriterUtil {
                     .append(")")
                     .append(onDuplicateKeyUpdateString(columnHolders))
                     .toString();
+        } else if (dataBaseType == DataBaseType.Cache) {
+            writeDataSqlTemplate = new StringBuilder()
+                    .append("INSERT OR UPDATE INTO %s (").append(StringUtils.join(columnHolders, ","))
+                    .append(") VALUES(").append(StringUtils.join(valueHolders, ","))
+                    .append(")")
+                    .toString();
         } else {
 
             //这里是保护,如果其他错误的使用了update,需要更换为replace
