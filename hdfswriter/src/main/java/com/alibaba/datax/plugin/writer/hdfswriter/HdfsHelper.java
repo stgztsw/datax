@@ -223,7 +223,7 @@ public class HdfsHelper {
         String filterFileName = fileName + "__*";
         try {
             PathFilter pathFilter = new GlobFilter(filterFileName);
-            FileStatus[] status = fileSystem.listStatus(path, pathFilter);
+            FileStatus[] status = fileSystem.listStatus(path);
             files = new Path[status.length];
             for (int i = 0; i < status.length; i++) {
                 files[i] = status[i].getPath();
